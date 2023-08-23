@@ -3,30 +3,34 @@ import * as cheerio from "cheerio";
 import request from "request";
 
 export function getMovies(req, res, next) {
-  let page = req.query.page ? req.query.page : 1;
-  let category = req.query.category ? `/category/${req.query.category}/` : "/";
-  const url = `https://themoviezflix.co.com${category}page/${page}`;
+  let page = req.query.page || 1;
+  let category = req.query.category;
   let finalResults = [];
-  const URL = "https://themoviezflix.co.com/category/netflix/page/1";
+  
+  let url;
+  let url1 = `https://moviesflixer.lat/category/${category}/page/${page}`;
+  let url2 = `https://moviesflixer.lat`;
+  
+  if (category) {
+    url = url1;
+  } else {
+    url = url2;
+  }
   request(url, (err, result, html) => {
     if (!err) {
       let $ = cheerio.load(html);
-      //   console.log($("#blog"));
-      $(".main-container")
-        .find("#page")
-        .children("#content_box")
-        .children(".excerpt")
+      $("#content")
+        .find(".content")
         .each((index, element) => {
           let item = {
             id: uuidv4(),
-            downloadLink: $(element).find("a").attr("href"),
+            title: $(element).find(".entry-title").find("a").text(),
+            downloadLink: $(element).find(".entry-title").find("a").attr("href"),
             img_url: $(element).find("img").attr("src"),
-            title: $(element).find(".title").find("a").text(),
           };
           finalResults.push(item);
         });
-      $("#menu-item-674")
-        .find(".sub-menu")
+      $(".sub-menu")
         .children()
         .each((index, element) => {
           let item1 = {

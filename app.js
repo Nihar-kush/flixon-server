@@ -1,7 +1,7 @@
 import express from "express";
 import moviesRoute from "./routes/movies.js";
 import cors from "cors";
-import { v4 as uuidv4 } from "uuid";
+import 'dotenv/config'
 
 // CONFIGURATIONS
 const app = express();

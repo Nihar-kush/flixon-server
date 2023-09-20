@@ -9,7 +9,7 @@ const app = express();
 //MIDDLEWARES
 app.use(
   cors({
-    origin: ["http://localhost:3000", "https://flixon.netlify.app"],
+    origin: ["http://localhost:3000","http://localhost:3001", "https://flixon.netlify.app"],
     credentials: true,
   })
 );

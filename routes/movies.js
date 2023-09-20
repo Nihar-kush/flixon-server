@@ -1,5 +1,6 @@
 import express from "express";
 import { getMovies } from "../functions/getMovies.js";
+import { getSongs } from "../functions/getSongs.js";
 import { getMovieLink } from "../functions/getMovieLink.js";
 
 const router = express.Router();
@@ -9,6 +10,7 @@ router.get("/", async (req, res, next) => {
 });
 
 router.get("/api/movies", getMovies);
+router.get("/api/songs", getSongs);
 router.get("/api/movies/link", getMovieLink);
 
 export default router;
